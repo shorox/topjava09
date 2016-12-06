@@ -34,7 +34,7 @@ public class UserMealsUtil {
                 .collect(Collectors.groupingBy(p -> p.getDateTime().toLocalDate(), Collectors.summingInt(UserMeal::getCalories)));
         return mealList.stream()
                 .filter(s -> TimeUtil.isBetween(s.getDateTime().toLocalTime(), startTime, endTime))
-                .map(p -> new UserMealWithExceed(p.getDateTime(), p.getDescription(), p.getCalories(), map.get(p.getDateTime().toLocalDate()) <= caloriesPerDay))
+                .map(p -> new UserMealWithExceed(p.getDateTime(), p.getDescription(), p.getCalories(), map.get(p.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
     }
 }
