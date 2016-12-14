@@ -14,6 +14,7 @@ public class MealServlet extends HttpServlet{
     private static final Logger LOG = getLogger(MealServlet.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         LOG.debug("redirect to meals");
 
 //        request.getRequestDispatcher("/meals.jsp").forward(request, response);
