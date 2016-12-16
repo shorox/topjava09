@@ -7,7 +7,6 @@
 </head>
 <body>
 <h2><a href="index.html">Home</a></h2>
-<jsp:useBean id="meal" scope="page" class="ru.javawebinar.topjava.model.MealWithExceed" />
 <h2>Meal list</h2>
 <table border=1>
     <thead>
@@ -16,25 +15,20 @@
         <th>Время</th>
         <th>Описание</th>
         <th>Калории</th>
-        <th></th>
-        <th colspan=2></th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${users}" var="user">
+    <c:forEach items="${list_meals}" var="m">
         <tr>
-            <td><c:out value="${user.userid}" /></td>
-            <td><c:out value="${user.firstName}" /></td>
-            <td><c:out value="${user.lastName}" /></td>
-            <td><fmt:formatDate pattern="yyyy-MMM-dd" value="${user.dob}" /></td>
-            <td><c:out value="${user.email}" /></td>
-            <td><a href="UserController?action=edit&userId=<c:out value="${user.userid}"/>">Update</a></td>
-            <td><a href="UserController?action=delete&userId=<c:out value="${user.userid}"/>">Delete</a></td>
+            <td></td>
+            <td></td>
+            <td><c:out value="${m.getDescription()}" /></td>
+            <td></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href="UserController?action=insert">Add User</a></p>
+<p><a href="">Add User</a></p>
 </table>
 </body>
 </html>
