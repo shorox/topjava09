@@ -11,24 +11,38 @@
 <table border=1>
     <thead>
     <tr>
-        <th>id</th>
         <th>Время</th>
         <th>Описание</th>
         <th>Калории</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${list_meals}" var="m">
-        <tr>
-            <td></td>
-            <td></td>
+    <c:forEach items="${mealWithExceedList}" var="m">
+        <c:choose>
+            <c:when test="${m.isExceed()}">
+                <tr style="color: red">
+            </c:when>
+            <c:otherwise>
+                <tr style="color: green">
+            </c:otherwise>
+        </c:choose>
+
+            <td><c:out value="${m.getDateTime()}" /></td>
             <td><c:out value="${m.getDescription()}" /></td>
-            <td></td>
+            <td><c:out value="${m.getCalories()}" /></td>
+            <td><a href="?action=update">Изменить</a></td>
+            <td><a href="?action=delete">Удалить</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href="">Add User</a></p>
+<form method="post">
+    <input type="datetime" />
+</form>
+<p><a href="?action=add">Добавить</a></p>
 </table>
+
 </body>
 </html>
