@@ -4,15 +4,18 @@ import ru.javawebinar.topjava.model.Meal;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by sharov on 15.12.2016.
  */
-public class MealsDao {
+public class MealsDaoImpl implements ObjectDao<Meal> {
     private static List<Meal> meals = new CopyOnWriteArrayList<>();
+    private static MealsDaoImpl instance = new MealsDaoImpl();
+
+    private MealsDaoImpl() {
+    }
 
     static{
         meals.add(new Meal(0, LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500));
@@ -23,25 +26,34 @@ public class MealsDao {
         meals.add(new Meal(5, LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510));
     }
 
-    public static void addMeals(Meal meal){
+    public static MealsDaoImpl getInstance(){
+        return instance;
+    }
+
+    @Override
+    public void add(Meal meal){
         meals.add(meal);
     }
 
-    public static void deleteMeals(int mealId){
+    @Override
+    public void delete(int mealId){
         meals.remove(mealId);
     }
 
-    public static void updateMeals(int mealId, Meal meal){
+    @Override
+    public void update(int mealId, Meal meal){
         if(meals.size() < mealId) {
             meals.add(mealId, meal);
         }
     }
 
-    public static List<Meal> getAllMeals(){
+    @Override
+    public List<Meal> getAll(){
         return meals;
     }
 
-    public static Meal getMealById(int mealId){
+    @Override
+    public Meal getById(int mealId){
         return meals.get(mealId);
     }
 }
