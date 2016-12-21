@@ -7,7 +7,7 @@
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h2>User list</h2>
-    <table border="1" cellpadding="8" cellspacing="0">
+    <!--<table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
             <th>Name</th>
@@ -30,7 +30,7 @@
                 <td>${user.caloriesPerDay}</td>
             </tr>
         </c:forEach>
-    </table>
+    </table>-->
 </section>
 </body>
 </html>
