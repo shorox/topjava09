@@ -17,12 +17,14 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
+    private static final int USER_ID = 1;
+
     {
-        MealsUtil.MEALS.forEach(this::save);
+        MealsUtil.MEALS.forEach(p -> save(p, USER_ID));
     }
 
     @Override
-    public Meal save(Meal meal) {
+    public Meal save(Meal meal, int userId) {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
         }
@@ -31,17 +33,21 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id, int userId) {
+        if(repository.get(id).getId().intValue() != userId){
+            return false;
+        }
         repository.remove(id);
+        return false;
     }
 
     @Override
-    public Meal get(int id) {
+    public Meal get(int id, int userId) {
         return repository.get(id);
     }
 
     @Override
-    public Collection<Meal> getAll() {
+    public Collection<Meal> getAll(int userId) {
         return repository.values();
     }
 }
