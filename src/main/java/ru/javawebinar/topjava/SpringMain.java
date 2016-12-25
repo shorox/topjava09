@@ -9,6 +9,7 @@ import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.UserRepository;
 import ru.javawebinar.topjava.repository.mock.InMemoryMealRepositoryImpl;
 import ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl;
+import ru.javawebinar.topjava.web.meal.MealRestController;
 import ru.javawebinar.topjava.web.user.AdminRestController;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,8 @@ public class SpringMain {
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
             adminUserController.create(new User(1, "userName", "email", "password", Role.ROLE_ADMIN));
 
+            new MealRestController().getAll().stream().forEach(System.out::println);
+            /*
             UserRepository ur = appCtx.getBean(InMemoryUserRepositoryImpl.class);
             ur.save(new User(null, "test2", "test1@localhost", "test1", Role.ROLE_USER));
             ur.save(new User(null, "test1", "test2@localhost", "test2", Role.ROLE_USER));
@@ -41,6 +44,7 @@ public class SpringMain {
             mr.save(new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500), ur.getAll().get(1).getId().intValue());
             mr.save(new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510), ur.getAll().get(1).getId().intValue());
             mr.getAll(ur.getAll().get(1).getId().intValue()).stream().forEach(System.out::println);
+            */
         }
     }
 }
