@@ -10,10 +10,15 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * User: gkislin
@@ -72,11 +77,16 @@ public class JdbcMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll(int userId) {
-        return jdbcTemplate.query("SELECT * FROM meals ORDER BY ", ROW_MAPPER);
+        return jdbcTemplate.query("SELECT * FROM meals ORDER BY datetime", ROW_MAPPER);
     }
 
     @Override
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
-        return null;
+        Objects.requireNonNull(startDate);
+        Objects.requireNonNull(endDate);
+
+        return jdbcTemplate.query("SELECT * FROM meals WHERE user_id=? ORDER BY datetime", ROW_MAPPER, userId).stream()
+                .filter(p -> DateTimeUtil.isBetween(p.getDateTime(), startDate, endDate))
+                .collect(Collectors.toList());
     }
 }
