@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -16,10 +17,13 @@ import java.time.LocalTime;
         @UniqueConstraint(columnNames = "user_id", name = "meals_unique_user_datetime_idx"),
         @UniqueConstraint(columnNames = "date_time", name = "meals_unique_user_datetime_idx")})
 public class Meal extends BaseEntity {
-    @Column(name = "date_time", nullable = false, unique = true)
+
+    @Column(name = "date_time", nullable = false)
     @NotEmpty
     private LocalDateTime dateTime;
 
+    @Column(name = "description", nullable = false)
+    @NotEmpty
     private String description;
 
     private int calories;
