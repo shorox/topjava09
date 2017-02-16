@@ -48,6 +48,7 @@ public class Meal extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+
     public Meal() {
     }
 
